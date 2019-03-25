@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+    <title>弹框</title>
+    <style type="text/css">
+        .prompt {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            height: 10%;
+            width: 50%;
+            padding-top: 9%;
+            text-align: center;
+            color: #000000;
+            background: rgba(0, 25, 0, 0.6);
+            border-radius: 1rem;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+<!-- 弹框大小样式自己改变-->
+<button onclick="prompt_alert('111')">提交</button>
+</body>
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+    // 提示框
+    function prompt_alert(str) {
+        var div = '<div class="prompt"></div>';
+        $('body').append(div);
+        $('.prompt').html(str);
+        $('.prompt').show();
+        setTimeout(function() {
+            $('.prompt').hide();
+            $('.prompt').remove();
+        }, 3000)
+    }
+</script>
+</html>
