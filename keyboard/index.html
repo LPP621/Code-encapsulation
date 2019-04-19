@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>keyboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .num_div{
+            margin-top:30px;
+            margin-left: 26px;
+        }
+        .num_div table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        .num_div table td {
+            border: 1px solid #bbbbbb;
+            width: 78px;
+            height: 70px;
+            text-align: center;
+            font-size: 18px;
+        }
+        .num_div table td:active {
+            background-color: #c0c0c0;
+        }
+        .count {
+            border: 1px solid #E2E2E2;width: 84px;height: 20px;text-align: center;
+        }
+    </style>
+</head>
+<body>
+<input id="count" type="text" name="count" value="" class="count">
+<div class="num_div">
+    <table>
+        <tr>
+            <td class="num">1</td>
+            <td class="num">2</td>
+            <td class="num">3</td>
+            <td class="del" id="del">删除</td>
+        </tr>
+        <tr>
+            <td class="num">4</td>
+            <td class="num">5</td>
+            <td class="num">6</td>
+            <td>备用</td>
+        </tr>
+        <tr>
+            <td class="num">1</td>
+            <td class="num">2</td>
+            <td class="num">3</td>
+            <td>备用</td>
+        </tr>
+        <tr>
+            <td class="num">0</td>
+            <td class="num">00</td>
+            <td class="num">.</td>
+            <td>备用</td>
+        </tr>
+    </table>
+</div>
+<script>
+    // 监听键盘事件
+    var tds = document.getElementsByTagName('td');
+    //获取数字的集合
+    var nums = document.getElementsByClassName("num");
+    //获取归0
+    var del = document.getElementById("del");
+
+    //获取数量
+    var count = document.getElementById("count");
+    //声明用于保存内容的三个变量
+    var numValue = ""; //存储数字
+    var optionC = ""; //存储操作符
+    var numTemp = ""; //存储暂存值
+
+    //点击数字键时 触发事件
+    for (var i = 0; i < nums.length; i++) {
+        nums[i].onclick = function () {
+            if (numValue == "0") {
+                if (this.innerHTML !== ".") {
+                    numValue = this.innerHTML;
+                } else {
+                    numValue += this.innerHTML;
+                }
+            } else {
+                if (numValue == "" && this.innerHTML == "." || numValue == "" && this.innerHTML == "00") {
+                    numValue;
+                } else {
+                    var index = numValue.indexOf(".");
+                    if (index > 0 && this.innerHTML == ".") {
+                        numValue;
+                    } else {
+                        if (numValue.substr(index, numValue.length).length > 2) {
+                            numValue;
+                        } else {
+                            if (index == -1) {
+                                if (this.innerHTML == '.') {
+                                    numValue += this.innerHTML;
+                                } else if (numValue.length > 5) {
+                                    numValue;
+                                } else {
+                                    numValue += this.innerHTML;
+                                }
+                            } else {
+                                if (numValue.substr(index, numValue.length).length <= 2) {
+                                    numValue += this.innerHTML;
+                                } else if (numValue.substr(0, index).length > 5) {
+                                    numValue;
+                                } else {
+                                    numValue += this.innerHTML;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            count.value = numValue;
+            // count.style.color = "#222222";
+            // $('.order_fee').val(numValue);
+        }
+    }
+
+    // 退格操作
+    del.onclick = function () {
+        numValue = numValue.substr(0, numValue.length - 1);
+        count.value = numValue;
+    }
+</script>
+</body>
+</html>
